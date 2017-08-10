@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     },
     upLeftContainer:{
         flex:0.8,
+        
     },
     upRightContainer:{
          flex:0.2,
