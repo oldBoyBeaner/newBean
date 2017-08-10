@@ -17,26 +17,33 @@ import {
     Alert,
     TouchableOpacity,
     StatusBar,
+    ListView,
+    InteractionManager
 } from 'react-native';
 import screen from '../../common/screen';
 import color from '../../widget/color';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1 } from '../../widget/Text';
 import api from '../../api';
-
+import RefreshListView from '../../widget/RefreshListView';
+import RefreshState from  '../../widget/RefreshState';
 import SpaceView from '../../widget/SpaceView';
+
+import HomeImageTextCell from './HomeImageTextCell';
 
 
 export default class  HomeScene extends PureComponent{
+    listView:ListView;
     // 构造
       constructor(props) {
         super(props);
+        let ds = new ListView.DataSource({rowHasChanged:(r1,r2)=>r1 !== r2});
         // 初始状态
         this.state = {
-            discounts:[],
-            dataList: [],
-            refreshing: false,
+          dataSource:ds.cloneWithRows([]),
+
         };
+    this.requestData= this.requestData.bind(this);
 
       }
     static  navigationOptions =({navigation})=>({
@@ -47,25 +54,60 @@ export default class  HomeScene extends PureComponent{
         //         <Paragraph>一点点</Paragraph>
         // </TouchableOpacity>),
         headerTitle:'首页',
-        headerLeft:(
-            <NavigationItem
-                title='上海'
-                titleStyle={{color:'white'}}
-                onPress={()=>{
-
-                }}
-            />
-        ),
 
         headerStyle:{backgroundColor:color.theme}
 
     })
 
-    render(){
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(()=>{
+            this.listView.startHeaderRefreshing();
+        })
+    }
+    async requestData(){
+          try {
+              let response = await fetch(api.HomeAPi);
+              let jsonData = await response.json();
+              console.log(jsonData.date);
+              this.listView && this.listView.endRefreshing(RefreshState.Idle);
+              // console.log(jsonData.recommend_feeds);
+              let dataSource = jsonData.recommend_feeds.map((feed, index) => {
+                  console.log(feed);
+                  return {
+                      feed
 
+                  }
+              })
+              this.setState({
+                  dataSource: this.state.dataSource.cloneWithRows(dataSource)
+
+              })
+              console.log(this.state.dataSource);
+          }catch (error){
+              this.listView && this.listView.endRefreshing(RefreshState.Failure);
+          }
+
+    }
+    renderRow(rowData){
+        <HomeImageTextCell
+            feed={rowData}
+        />
+
+    }
+    render(){
+        let dataSource = this.state.dataSource
         return (
             <View style={styles.container}>
-
+                <RefreshListView
+                        ref={(e)=>this.listView = e}
+                        dataSource={this.state.dataSource}
+                        renderRow={(rowData)=>(
+                            <HomeImageTextCell
+                                feed={rowData}
+                            />
+                        )}
+                        onHeaderRefresh={this.requestData}
+                />
             </View>
         );
     }
