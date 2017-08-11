@@ -44,7 +44,7 @@ export default class  HomeScene extends PureComponent{
 
         };
     this.requestData= this.requestData.bind(this);
-
+    this.renderRow = this.renderRow.bind(this);
       }
     static  navigationOptions =({navigation})=>({
         // headerTitle:(
@@ -88,10 +88,19 @@ export default class  HomeScene extends PureComponent{
           }
 
     }
-    renderRow(rowData){
-        <HomeImageTextCell
+    renderRow(rowData:{}, sectionID:number, rowID:number){
+        console.log(`rowid====${rowID}`);
+        console.log(rowID);
+       return( <HomeImageTextCell
             feed={rowData}
+            index={rowID}
+            onPress={(rowID)=>{
+                alert(rowID);
+                console.log(rowID)
+
+            }}
         />
+       )
 
     }
     render(){
@@ -101,11 +110,7 @@ export default class  HomeScene extends PureComponent{
                 <RefreshListView
                         ref={(e)=>this.listView = e}
                         dataSource={this.state.dataSource}
-                        renderRow={(rowData)=>(
-                            <HomeImageTextCell
-                                feed={rowData}
-                            />
-                        )}
+                        renderRow={this.renderRow}
                         onHeaderRefresh={this.requestData}
                 />
             </View>

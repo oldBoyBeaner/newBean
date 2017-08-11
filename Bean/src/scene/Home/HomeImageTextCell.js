@@ -10,18 +10,41 @@ import Seperator from '../../widget/Separator';
 import SpaceView from '../../widget/SpaceView';
 export default class HomeImageTextCell extends  PureComponent{
 
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {};
+          this.imageDefault = this.imageDefault.bind(this);
+      }
+
+    imageDefault(url){
+        console.log(url);
+        if(url.length>0){
+            return (
+                <Image source={{uri:url}} style={styles.image}/>
+            )
+        }else {
+            return(
+                <Image source={require('../../img/ic_img_default_24x24_.png')} style={styles.image}/>
+            )
+        }
+    }
+
     render(){
         let feed = this.props.feed.feed;
 
+      let index = this.props.index;
         return(
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={()=>this.props.onPress(index)}>
                 <View style={styles.upContainer}>
                     <View style={styles.upLeftContainer}>
                         <Heading1 numberOfLines={2} style={{marginBottom:8}}>{feed.title}</Heading1>
-                        <Paragraph numberOfLines={2}>{feed.target.desc}</Paragraph>
+                        <Paragraph numberOfLines={2} >{feed.target.desc}</Paragraph>
                     </View>
                     <View style={styles.upRightContainer}>
-                        <Image source={{uri:feed.target.cover_url}} style={styles.image}/>
+                        {/*<Image source={{uri:feed.target.cover_url}} style={styles.image}/>*/}
+                        {this.imageDefault(feed.target.cover_url)}
                     </View>
                 </View>
                 <View style={styles.bottom}>
@@ -51,7 +74,8 @@ const styles = StyleSheet.create({
     },
     upLeftContainer:{
         flex:0.8,
-        
+        marginRight:10
+
     },
     upRightContainer:{
          flex:0.2,
