@@ -138,7 +138,7 @@ export default class  HomeScene extends PureComponent{
                     />
                 </View>
 
-                <View style={{flexDirection:'row',flexWrap:'wrap',flex:1}}>
+                <View style={{flexDirection:'row',flexWrap:'wrap',flex:1,justifyContent:'space-around'}}>
                 {remArray.map((item,i)=>(
                     <HomeRecommendItem
                         icon={require('../../img/ic_tab_group_32x32_.png')}
