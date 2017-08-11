@@ -18,6 +18,6 @@ const styles=StyleSheet.create({
     container:{
         backgroundColor:color.background,
         height:15,
-        width:screen.width
+       flex:1
     }
 })

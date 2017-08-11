@@ -58,8 +58,8 @@ const Tab=TabNavigator({
                     <TabBarItem
                         focused={focused}
                         tintColor={tintColor}
-                        normalImage={require('./img/tabbar/pfb_tabbar_homepage.png')}
-                        selectedImage={require('./img/tabbar/pfb_tabbar_homepage_selected.png')}
+                        normalImage={require('./img/ic_tab_home_gray_32x32_.png')}
+                        selectedImage={require('./img/ic_tab_home_32x32_.png')}
                     />
                 )
             })
@@ -72,8 +72,8 @@ const Tab=TabNavigator({
                     <TabBarItem
                         focused={focused}
                         tintColor={tintColor}
-                        normalImage={require('./img/tabbar/pfb_tabbar_merchant.png')}
-                        selectedImage={require('./img/tabbar/pfb_tabbar_merchant_selected.png')}
+                        normalImage={require('./img/ic_tab_subject_gray_32x32_.png')}
+                        selectedImage={require('./img/ic_tab_subject_32x32_.png')}
                     />),
 
 
@@ -88,8 +88,8 @@ const Tab=TabNavigator({
                     <TabBarItem
                         focused={focused}
                         tintColor={tintColor}
-                        normalImage={require('./img/tabbar/pfb_tabbar_order.png')}
-                        selectedImage={require('./img/tabbar/pfb_tabbar_order_selected.png')}
+                        normalImage={require('./img/ic_tab_timeline_gray_32x32_.png')}
+                        selectedImage={require('./img/ic_tab_timeline_32x32_.png')}
                     />
                 )
 
@@ -104,8 +104,8 @@ const Tab=TabNavigator({
                     <TabBarItem
                         focused={focused}
                         tintColor={tintColor}
-                        normalImage={require('./img/tabbar/pfb_tabbar_order.png')}
-                        selectedImage={require('./img/tabbar/pfb_tabbar_order_selected.png')}
+                        normalImage={require('./img/ic_tab_group_gray_32x32_.png')}
+                        selectedImage={require('./img/ic_tab_group_32x32_.png')}
                     />
                 )
 
@@ -120,8 +120,8 @@ const Tab=TabNavigator({
                     <TabBarItem
                         focused={focused}
                         tintColor={tintColor}
-                        normalImage={require('./img/tabbar/pfb_tabbar_order.png')}
-                        selectedImage={require('./img/tabbar/pfb_tabbar_order_selected.png')}
+                        normalImage={require('./img/profile_normal_32x32_.png')}
+                        selectedImage={require('./img/profile_active_32x32_.png')}
                     />
                 )
             })
@@ -143,7 +143,7 @@ const Tab=TabNavigator({
 )
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
-        // Web:{screen:WebScene},
+        Web:{screen:WebScene},
       
 
     },

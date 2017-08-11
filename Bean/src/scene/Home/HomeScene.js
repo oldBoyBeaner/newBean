@@ -13,7 +13,6 @@ import {
     ScrollView,
     FlatList,
     SectionList,
-    Button,
     Alert,
     TouchableOpacity,
     StatusBar,
@@ -28,6 +27,8 @@ import api from '../../api';
 import RefreshListView from '../../widget/RefreshListView';
 import RefreshState from  '../../widget/RefreshState';
 import SpaceView from '../../widget/SpaceView';
+import Button  from  '../../widget/NavigationItem';
+import  HomeRecommendItem from './HomeRecommendItem';
 
 import HomeImageTextCell from './HomeImageTextCell';
 
@@ -41,10 +42,11 @@ export default class  HomeScene extends PureComponent{
         // 初始状态
         this.state = {
           dataSource:ds.cloneWithRows([]),
-
+            array:[]
         };
     this.requestData= this.requestData.bind(this);
     this.renderRow = this.renderRow.bind(this);
+          this._renderHeader = this._renderHeader.bind(this);
       }
     static  navigationOptions =({navigation})=>({
         // headerTitle:(
@@ -69,7 +71,7 @@ export default class  HomeScene extends PureComponent{
               let response = await fetch(api.HomeAPi);
               let jsonData = await response.json();
               console.log(jsonData.date);
-              this.listView && this.listView.endRefreshing(RefreshState.Idle);
+              this.listView && this.listView.endRefreshing(RefreshState.NoMoreData);
               // console.log(jsonData.recommend_feeds);
               let dataSource = jsonData.recommend_feeds.map((feed, index) => {
                   console.log(feed);
@@ -78,9 +80,16 @@ export default class  HomeScene extends PureComponent{
 
                   }
               })
-              this.setState({
-                  dataSource: this.state.dataSource.cloneWithRows(dataSource)
+              let  array = jsonData.recommend_feeds.map((feed, index) => {
+                  console.log(feed);
+                  return {
+                      feed
 
+                  }
+              })
+              this.setState({
+                  dataSource: this.state.dataSource.cloneWithRows(dataSource),
+                array:array,
               })
               console.log(this.state.dataSource);
           }catch (error){
@@ -90,18 +99,61 @@ export default class  HomeScene extends PureComponent{
     }
     renderRow(rowData:{}, sectionID:number, rowID:number){
         console.log(`rowid====${rowID}`);
-        console.log(rowID);
+        console.log(rowData.feed);
+        let url = rowData.feed.target.uri;
        return( <HomeImageTextCell
             feed={rowData}
             index={rowID}
             onPress={(rowID)=>{
-                alert(rowID);
-                console.log(rowID)
+
+               this.props.navigation.navigate('Web',{url:url})
 
             }}
         />
        )
 
+    }
+    _renderHeader(){
+        let array = this.state.array;
+        if (array.length<=0){
+            return;
+        }
+        let data = array[array.length-1];
+        let url =data.feed.target.uri;
+        let remArray=['豆瓣时间','市集','豆瓣书店','豆瓣视频']
+        return(
+            <View>
+                <View style={styles.hotContainer}>
+                  <Image source={require('../../img/ic_hot_20x20_.png')}/>
+                  <Paragraph>今日热点</Paragraph>
+                </View>
+                <View>
+                    <HomeImageTextCell
+                            feed={data}
+                            index={0}
+                            onPress={(i)=>{
+
+                                this.props.navigation.navigate('Web',{url:url})
+                            }}
+                    />
+                </View>
+
+                <View style={{flexDirection:'row',flexWrap:'wrap',flex:1}}>
+                {remArray.map((item,i)=>(
+                    <HomeRecommendItem
+                        icon={require('../../img/ic_tab_group_32x32_.png')}
+                        title={item}
+                        key={i}
+                        index={i}
+                        onPress={(i)=>{
+                           alert(i)
+                        }}
+                    />
+                ))}
+                </View>
+                <SpaceView/>
+            </View>
+        )
     }
     render(){
         let dataSource = this.state.dataSource
@@ -112,6 +164,8 @@ export default class  HomeScene extends PureComponent{
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow}
                         onHeaderRefresh={this.requestData}
+                        onFooterRefresh={this.requestData}
+                        renderHeader={this._renderHeader}
                 />
             </View>
         );
@@ -147,5 +201,12 @@ const styles = StyleSheet.create({
         height:20,
         margin:5,
     },
-
+    hotContainer:{
+        flex:1,
+        flexDirection:'row',
+        alignItems: 'center',
+        padding:10,
+        paddingBottom:0,
+        backgroundColor:'white'
+    }
 })
