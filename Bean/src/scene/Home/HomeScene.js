@@ -17,6 +17,7 @@ import {
     TouchableOpacity,
     StatusBar,
     ListView,
+    Modal,
     InteractionManager
 } from 'react-native';
 import screen from '../../common/screen';
@@ -31,8 +32,8 @@ import Button  from  '../../widget/NavigationItem';
 import  HomeRecommendItem from './HomeRecommendItem';
 
 import HomeImageTextCell from './HomeImageTextCell';
-
-
+import DefaultQR from '../../widget/DefaultScreen';
+let that ;
 export default class  HomeScene extends PureComponent{
     listView:ListView;
     // 构造
@@ -42,21 +43,42 @@ export default class  HomeScene extends PureComponent{
         // 初始状态
         this.state = {
           dataSource:ds.cloneWithRows([]),
-            array:[]
+            array:[],
+            modal:false,
         };
-    this.requestData= this.requestData.bind(this);
-    this.renderRow = this.renderRow.bind(this);
+          this.requestData= this.requestData.bind(this);
+          this.renderRow = this.renderRow.bind(this);
           this._renderHeader = this._renderHeader.bind(this);
-      }
-    static  navigationOptions =({navigation})=>({
-        // headerTitle:(
-        //     <TouchableOpacity style={styles.search}>
-        //         <Image source={require('../../img/Home/search_icon.png')} style={styles.searchIcon}/>
-        //
-        //         <Paragraph>一点点</Paragraph>
-        // </TouchableOpacity>),
-        headerTitle:'首页',
 
+          that = this;
+      }
+   scanAction(){
+        this.setState({
+            modal:true
+        })
+
+    // this.props.navigation.navigate('QRView');
+           return(
+               <Modal
+                   visible={true}
+                  animationType='slide'
+                   transparent={false}
+                 >
+                   {DefaultQR}
+               </Modal>
+           )
+   }
+    static  navigationOptions =({navigation})=>({
+        headerTitle:(
+            <TouchableOpacity style={styles.search} >
+                <Image source={require('../../img/ic_search_17x17_.png')} style={{marginLeft:10}}/>
+                <Paragraph>影视 图书 唱片 小组等</Paragraph>
+                <TouchableOpacity style={styles.scan} onPress={()=>that.scanAction()}>
+                    <Image source={require('../../img/scan_17x17_.png')} style={{width:17,height:17}}/>
+                </TouchableOpacity>
+
+        </TouchableOpacity>),
+        headerLeft:null,
         headerStyle:{backgroundColor:color.theme}
 
     })
@@ -167,6 +189,31 @@ export default class  HomeScene extends PureComponent{
                         onFooterRefresh={this.requestData}
                         renderHeader={this._renderHeader}
                 />
+                <Modal
+                    visible={this.state.modal}
+                    animationType='slide'
+                    transparent={false}
+                >
+                   <DefaultQR onPress={()=>{
+                       this.setState({
+                           modal:false
+                       })
+                   }}
+                              photo={()=>{
+                       alert('相册')
+                   }}
+                              result={(e)=>{
+                                  this.setState({
+                                      modal:false
+                                  })
+                                  // Alert.alert(e.data)
+                                console.log(e.data)
+                                 setTimeout(()=>{
+                                      alert('扫描结果'+e.data)
+                                 },1000)
+                              }}
+                   />
+                </Modal>
             </View>
         );
     }
@@ -186,15 +233,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     search:{
-        width:screen.width*0.7,
+        width:screen.width*0.85,
         height:30,
-        borderRadius:15,
+        borderRadius:5,
         flexDirection:'row',
-        justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'white',
+        backgroundColor:'#abd7d7',
         alignSelf:'center',
-
+        marginLeft:-20,
     },
     searchIcon:{
         width:20,
@@ -208,5 +254,10 @@ const styles = StyleSheet.create({
         padding:10,
         paddingBottom:0,
         backgroundColor:'white'
+    },
+    scan:{
+        flex:1,
+        alignItems:'flex-end',
+        marginRight:10
     }
 })
