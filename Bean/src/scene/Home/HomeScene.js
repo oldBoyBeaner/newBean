@@ -18,7 +18,8 @@ import {
     StatusBar,
     ListView,
     Modal,
-    InteractionManager
+    InteractionManager,
+    Platform
 } from 'react-native';
 import screen from '../../common/screen';
 import color from '../../widget/color';
@@ -33,7 +34,23 @@ import  HomeRecommendItem from './HomeRecommendItem';
 
 import HomeImageTextCell from './HomeImageTextCell';
 import DefaultQR from '../../widget/DefaultScreen';
+import ImagePicker from 'react-native-image-picker';
+
 let that ;
+
+var photoOptions ={
+    title:'请选择',
+    cancelButtonTitle:'取消',
+    takePhotoButtonTitle:'拍照',
+    chooseFromLibraryButtonTitle:'选择相册',
+    quality:0.75,
+    allowsEditing:true,
+    noData:false,
+    storageOption:{
+        skipBackup:true,
+        path:'images'
+    }
+}
 export default class  HomeScene extends PureComponent{
     listView:ListView;
     // 构造
@@ -200,7 +217,27 @@ export default class  HomeScene extends PureComponent{
                        })
                    }}
                               photo={()=>{
-                       alert('相册')
+                       ImagePicker.showImagePicker(photoOptions,(response)=>{
+                           this.setState({
+                               modal:false
+                           })
+                            console.log('response'+response);
+                            if (response.didCancel){
+                                return;
+                            }else if (response.error){
+                                console.log(response.error)
+                            }else {
+                                let source ;
+                                let  file;
+                                if (Platform.OS === 'android'){
+                                    source={uri:response.uri,isStatic:true}
+                                    file = response.uri;
+                                }else {
+                                    source={uri:response.uri.replace('file://',''),isStatic:true}
+                                file=response.uri.replace('file://','')
+                                }
+                            }
+                       })
                    }}
                               result={(e)=>{
                                   this.setState({
