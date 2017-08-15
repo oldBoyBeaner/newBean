@@ -26,18 +26,8 @@ import { Paragraph,Heading1 } from '../../widget/Text';
 export  default  class  NotificationScene extends PureComponent{
     static  navigationOptions =({navigation})=>({
         headerTitle:'广播',
-        headerLeft:(
-            <NavigationItem
-                title='上海'
-                titleStyle={{color:'white'}}
-                onPress={()=>{
-
-                }}
-            />
-        ),
-
+        headerTitleStyle:{alignSelf:'center'},
         headerStyle:{backgroundColor:color.theme}
-
     })
     render(){
 
@@ -53,4 +43,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.background
     },
+    header:{
+      alignSelf:'center'
+    }
 })
