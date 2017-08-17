@@ -1,6 +1,3 @@
-/**
- * Created by sunbiao on 2017/8/16.
- */
 import React, { PureComponent } from 'react';
 import {
     AppRegistry,
@@ -22,44 +19,49 @@ import screen from '../../common/screen';
 import color from '../../widget/color';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1 } from '../../widget/Text';
-import BookVideorecItem from './BookVideorecItem'
+import BookVideoHotMovieItem from './BookVideoHotMovieItem'
 import BookVideoTypeNum from './BookVideoTypeNum'
 
-export  default class BookVideoRecommend extends  PureComponent{
+export  default class BookVideoHotMovie extends  PureComponent{
     // 构造
-      constructor(props) {
+    constructor(props) {
         super(props);
         // 初始状态
         this.state = {};
-      }
+    }
 
-      render(){
-          let title = this.props.title;
-          let subTitle = this.props.subtitle;
-          let datas = this.props.item;
+    render(){
+        let title = this.props.title;
+        let subTitle = this.props.subtitle;
+        let datas = this.props.item;
 
-          return(
-              <View style={styles.container}>
-                  <BookVideoTypeNum
-                      title= {title}
-                      subtitle={subTitle}
-                  />
-                  <ScrollView style={styles.scrollview} horizontal={true}>
-                      {datas.map((data,index)=>(
-                          
-                        <BookVideorecItem
+        return(
+            <View style={styles.container}>
+                <BookVideoTypeNum
+                    title= {title}
+                    subtitle={subTitle}
+                />
+                <ScrollView style={styles.scrollview} horizontal={true}>
+                    {datas.map((data,index)=>(
+
+                        <BookVideoHotMovieItem
                             data={data}
                             key={index}
                             onPress={()=>{
                                 alert(index)
                             }}
                         />
-                      ))}
-
-                  </ScrollView>
-              </View>
-          )
-      }
+                    ))}
+                    <TouchableOpacity
+                        style={styles.lastAll}>
+                        <Paragraph>全部</Paragraph>
+                        <View style={{backgroundColor:'#AEAEAE',height:1,width:20,marginVertical:5}}/>
+                        <Paragraph>{subTitle}</Paragraph>
+                    </TouchableOpacity>
+                </ScrollView>
+            </View>
+        )
+    }
 }
 const styles = StyleSheet.create({
     container:{
@@ -81,5 +83,13 @@ const styles = StyleSheet.create({
 
         width:screen.width/2.0,
         height:screen.width/2.0,
+    },
+    lastAll:{
+        width:screen.width/3.5,
+        height:screen.width/3.5+20,
+        backgroundColor:color.background,
+        justifyContent:'center',
+        alignItems:'center'
+
     }
 })

@@ -23,27 +23,29 @@ import screen from '../../common/screen';
 import color from '../../widget/color';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1,Heading2 } from '../../widget/Text';
+import  StartScore from '../../common/StartScore'
 export  default class BookVideorecItem extends  PureComponent{
+    _selectedIndex(count){
+            console.log('打了积分');
+    }
     render(){
         let data = this.props.data;
+        let rate = data.rating;
+        if (rate){
+            let score =Math.ceil(data.rating.value);
+        }
+      
+
         return(
 
-                <TouchableOpacity style={styles.container} onPress={()=>this.props.onPress()}>
-                    <ImageBackground source={{uri:data.target.cover_url}}
-                           style={styles.img}>
-                        <View style={{flexDirection:'row',marginLeft:5,marginBottom:5}}>
-                            <View style={{padding:3,borderRadius:5,backgroundColor:'#fff'}}>
-                             <Paragraph style={{color:'#000'}}>{data.theme.name}</Paragraph>
-                            </View>
-                            <View/>
-                        </View>
-                        <View style={styles.discri}>
+            <TouchableOpacity style={styles.container} onPress={()=>this.props.onPress()}>
+                <Image source={{uri:data.cover.url}}
+                                 style={styles.img} />
 
-                            <Heading2 style={{color:'#ffffff'}} numberOfLines={2}>{data.title}</Heading2>
+               <Paragraph style={{color:'#000'}} numberOfLines={1}>{data.title}</Paragraph>
 
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
+                {/*<StartScore currentScore={score} selectIndex={this._selectedIndex.bind(this)}/>*/}
+            </TouchableOpacity>
 
         )
     }
@@ -62,11 +64,12 @@ const styles = StyleSheet.create({
     },
     container:{
         marginRight:10,
-
+        width:screen.width/3.5
     },
     img:{
-        width:screen.width/2.0,
-        height:screen.width/2.0,
+        width:screen.width/3.5,
+        height:screen.width/3.5+20,
+        marginBottom:5,
         justifyContent:'flex-end'
     },
     tip:{

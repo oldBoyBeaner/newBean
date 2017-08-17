@@ -24,6 +24,8 @@ import color from '../../widget/color';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1 } from '../../widget/Text';
 import HomeSearchItem from '../Home/HomeSearchItem'
+import BookVideoHotMovie from './BookVideoHotMovie'
+
 import  BookVideoRecommend from './BookVideoRecommend';
 
 export  default class  BookVideoList extends  PureComponent{
@@ -54,16 +56,31 @@ export  default class  BookVideoList extends  PureComponent{
               return(
               <BookVideoRecommend
                   title={item.item.data.title}
-                  subtitle={`全部${item.item.data.total} >`}
+                  subtitle={item.item.data.total}
                   item={item.item.data.items}
               />
               )
+          }else if (item.index==1){
+              let  array = item.item.data.subject_collection_boards;
+              console.log(array);
+              let title = array[0].items[0].title;
+              console.log(title);
+            return(
+                <BookVideoHotMovie
+                title={array[0].subject_collection.name}
+                subtitle={array[0].subject_collection.subject_count}
+                item={array[0].items}
+            />
+            )
           }
 
     }
+
+
     keyExtractor(item,index){
         return index;
     }
+
     render(){
         return(
             <View style={styles.container}>
