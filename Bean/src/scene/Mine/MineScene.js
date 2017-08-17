@@ -42,18 +42,84 @@ export  default  class  MineScene extends PureComponent{
 
         return(
             <View style={styles.container}>
+                <ScrollView style={{flex:0.8}}
+                            onScrollBeginDrag={()=>{
+                                alert('start');
+                            }}
+                            // onMomentumScrollEnd={()=>{
+                            //     alert('end')
+                            // }}
+                            // onScroll={()=>{
+                            //     alert('change')
+                            // }}
+                >
                 <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
 
                 <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
-            </TouchableOpacity>
+                <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+              </TouchableOpacity>
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
+
+                        <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+                        <Image source={require('../../img/ic_album_cover_65x65_.png')}/>
+                    </TouchableOpacity>
+
+                </ScrollView>
+                <View style={{flex:0.2,backgroundColor:'#FFFF65'}}>
+                    <Text>底部按钮</Text>
+                </View>
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        flexDirection:'row',
+        flex: 1,
+        // flexDirection:'row',
         backgroundColor: 'orange'
     },
 })

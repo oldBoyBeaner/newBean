@@ -24,46 +24,31 @@ import color from '../../widget/color';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1,Heading2 } from '../../widget/Text';
 import  StartScore from '../../common/StartScore'
-export  default class BookVideorecItem extends  PureComponent{
+export  default class BookVideoWillOpenItem extends  PureComponent{
     _selectedIndex(count){
-            console.log('打了积分');
+        console.log('打了积分');
     }
-    rateAndScore(score){
-        return (
-            <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
 
-                <View style={{width:50}} >
-                    <StartScore  currentScore={Math.ceil(score/2)} selectIndex={this._selectedIndex.bind(this)}/>
-                </View>
-                <View style={{flex:1,marginLeft:5,marginTop:-15}}>
-                <Paragraph style={{color:'#B0B0B0'}}>{score}</Paragraph>
-                </View>
-            </View>
-        )
-    }
     render(){
         let data = this.props.data;
         let rate = data.rating;
         let component;
-        if (rate){
-            let score =data.rating.value;
-            component =this.rateAndScore(score)
-        }else {
-            component=<View>
-                <Paragraph>暂无评分</Paragraph>
-            </View>
-        }
-      
+
+        let count =data.wish_count;
+
+
 
         return(
 
             <TouchableOpacity style={styles.container} onPress={()=>this.props.onPress()}>
                 <Image source={{uri:data.cover.url}}
-                                 style={styles.img} />
+                       style={styles.img} />
 
-               <Paragraph style={{color:'#000',marginBottom:5}} numberOfLines={1}>{data.title}</Paragraph>
+                <Paragraph style={{color:'#000',marginBottom:5}} numberOfLines={1}>{data.title}</Paragraph>
 
-                {component}
+                <View>
+                    <Paragraph>{`${count}人想看`}</Paragraph>
+                </View>
             </TouchableOpacity>
 
         )

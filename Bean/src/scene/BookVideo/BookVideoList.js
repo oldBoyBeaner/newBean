@@ -25,7 +25,7 @@ import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1 } from '../../widget/Text';
 import HomeSearchItem from '../Home/HomeSearchItem'
 import BookVideoHotMovie from './BookVideoHotMovie'
-
+import BookVideoWillOpen from './BookVideoWillOpen'
 import  BookVideoRecommend from './BookVideoRecommend';
 
 export  default class  BookVideoList extends  PureComponent{
@@ -72,6 +72,25 @@ export  default class  BookVideoList extends  PureComponent{
                 item={array[0].items}
             />
             )
+          }else if (item.index==2){
+              console.log(item);
+
+
+          }else if (item.index==3){
+              console.log(item);
+              let  array = item.item.data.subject_collection_boards;
+            return(
+                <BookVideoWillOpen
+                    title={array[0].subject_collection.name}
+                    subtitle={array[0].subject_collection.subject_count}
+                    item={array[0].items}
+                />
+            )
+
+          } else if (item.index==4){
+              console.log(item);
+
+
           }
 
     }
