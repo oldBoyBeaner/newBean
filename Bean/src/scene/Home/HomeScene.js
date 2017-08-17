@@ -97,6 +97,13 @@ export default class  HomeScene extends PureComponent{
 
             </TouchableOpacity>),
         headerLeft:null,
+        headerRight:(
+            <NavigationItem icon={require('../../img/ic_reply_13x13_.png')}
+                            onPress={()=>{
+                                alert('暂未开通')
+                            }}
+            />
+        ),
         headerStyle:{backgroundColor:color.theme}
 
     })

@@ -42,14 +42,18 @@ export  default  class  MineScene extends PureComponent{
 
         return(
             <View style={styles.container}>
+                <TouchableOpacity style={{padding:5,borderRadius:5,backgroundColor:'red'}}>
 
+                <Text>1234sdfsdfsfsdfadfasdfaf56</Text>
+            </TouchableOpacity>
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: color.background
+        // flex: 1,
+        flexDirection:'row',
+        backgroundColor: 'orange'
     },
 })
