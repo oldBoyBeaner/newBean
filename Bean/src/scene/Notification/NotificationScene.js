@@ -25,7 +25,7 @@ import color from '../../widget/color';
 import RefreshListView from '../../widget/RefreshListView';
 import NavigationItem from '../../widget/NavigationItem';
 import { Paragraph,Heading1 } from '../../widget/Text';
-import  notificationItem from './notificationItem';
+import  NotificationItem from './NotificationItem';
 export  default  class  NotificationScene extends PureComponent{
   listView:ListView;
   constructor(props) {
@@ -34,8 +34,8 @@ export  default  class  NotificationScene extends PureComponent{
       rowHasChanged:(r1,r2)=>r1 !== r2
     });
     this.state = {
-      dataSource:ds.cloneWithRows([]),
-        array:['1','2']
+      dataSource:ds.cloneWithRows(['1','2','3']),
+        array:['1','2','3']
     };
     this.renderRow = this.renderRow.bind(this);
     this._renderHeader = this._renderHeader.bind(this);
@@ -61,8 +61,8 @@ export  default  class  NotificationScene extends PureComponent{
         // ic_navibar_chat_24x24_@1x.png
     })
     renderRow(rowData:{}, sectionID:number, rowID:number){
-      alert(rowID)
-       return( <notificationItem
+
+       return( <NotificationItem
             feed='fds'
             index='1'
         />
