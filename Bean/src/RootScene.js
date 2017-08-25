@@ -13,7 +13,7 @@ import TabBarItem from './widget/TabBarItem';
 import Color from './widget/color';
 import WebScene from './widget/WebScene';
 import QRDefault from './widget/DefaultScreen'
-
+import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
 
 const lightContentScenes = ['Home', 'Mine'];
 
@@ -144,7 +144,8 @@ const Tab=TabNavigator({
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
         Web:{screen:WebScene},
-        QRView:{screen:QRDefault}
+        QRView:{screen:QRDefault},
+        BookVideoDetail:{screen:BookVideoDetail}
 
     },
     {
