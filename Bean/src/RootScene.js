@@ -15,6 +15,9 @@ import WebScene from './widget/WebScene';
 import QRDefault from './widget/DefaultScreen'
 import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
 import * as WeChat from 'react-native-wechat';
+import stroage from './scene/Login/StorageUtil';
+import './scene/Login/Global';
+import LoginScene from './scene/Login/LoginScene';
 
 const lightContentScenes = ['Home'];
 
@@ -149,6 +152,7 @@ const Tab=TabNavigator({
 )
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
+        Login:{screen:LoginScene},
         Web:{screen:WebScene},
         QRView:{screen:QRDefault},
         BookVideoDetail:{screen:BookVideoDetail}
