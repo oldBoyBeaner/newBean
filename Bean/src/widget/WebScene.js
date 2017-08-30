@@ -19,6 +19,9 @@ class WebScene extends PureComponent {
 
 
       shareToSesstion(isSesstion){
+        if (!this.state.wxInstall){
+            return;
+        }
           if (isSesstion){
               WeChat.shareToTimeline({
               type: 'news',
@@ -68,18 +71,28 @@ class WebScene extends PureComponent {
     });
 
     state: {
-        source: Object
+        source: Object,
+        wxInstall:boolean
     }
 
     constructor(props: Object) {
         super(props)
         this.state = {
-            source: {}
+            source: {},
+            wxInstall:false
         }
         _this = this;
+
     }
 
     componentDidMount() {
+        WeChat.isWXAppInstalled().then((isInstalled)=>{
+            this.setState({
+                wxInstall:isInstalled
+            })
+
+        })
+
         InteractionManager.runAfterInteractions(() => {
             this.props.navigation.setParams({ title: '加载中' })
             this.setState({ source: { uri: this.props.navigation.state.params.url } })

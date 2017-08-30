@@ -3609,4 +3609,12 @@ export default {
             "name": "电影"
         },
     HomeAPi:'https://m.douban.com/rexxar/api/v2/recommend_feed?alt=json&next_date=&loc_id=108288&gender=&birthday=&udid=9fcefbf2acf1dfc991054ac40ca5114be7cd092f&for_mobile=1'
+
+
+}
+export function getMineInfo(token,openid) {
+    return 'https://api.weixin.qq.com/sns/userinfo?access_token='+token+'&openid='+openid
+}
+export function getWxAccess(code) {
+    return 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx69d85a4e412e32b5&secret=cbbd6e3792a412ae672e7bd9a0d74ae2&code='+code+'&grant_type=authorization_code'
 }

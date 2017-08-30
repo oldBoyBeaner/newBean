@@ -17,6 +17,7 @@ import {
     Alert,
     TouchableOpacity,
     StatusBar,
+    Platform
 } from 'react-native';
 import screen from '../../common/screen';
 import color from '../../widget/color';
@@ -25,28 +26,107 @@ import { Paragraph,Heading1 } from '../../widget/Text';
 import SpaceView from '../../widget/SpaceView';
 import  Seprator from '../../widget/Separator';
 import MineItem from './MIneItem';
-
+import api,{getWxAccess,getMineInfo} from '../../api';
+import * as WeChat from 'react-native-wechat';
+let that;
 export  default  class  MineScene extends PureComponent{
+    // 构造
+      constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            userInfo:{}
+        };
+        this.getWXInfo = this.getWXInfo.bind(this);
+        this.getMineInfo = this.getMineInfo.bind(this);
+        that=this;
+      }
     static  navigationOptions =({navigation})=>({
         headerTitle:'我的',
         headerLeft:(
             <NavigationItem
                 title='上海'
-                titleStyle={{color:'white'}}
+                titleStyle={{color:'#000'}}
                 onPress={()=>{
 
                 }}
             />
         ),
+        headerRight:(
+            <NavigationItem
+                title='微信登录'
+                onPress={()=>that.wxLoad()}
+            />
+        )
+        ,
 
         headerStyle:{backgroundColor:'#fff'}
 
     })
+    async getWXInfo(code) {
+        try {
+            // 注意这里的await语句，其所在的函数必须有async关键字声明
+            let response = await fetch(getWxAccess(code));
+            let responseJson = await response.json();
+            this.getMineInfo(responseJson.access_token,responseJson.openid)
+
+        } catch(error) {
+            console.error(error);
+        }
+    }
+    async getMineInfo (token,openid){
+        let response = await fetch(getMineInfo(token,openid));
+        let responseJson = await response.json();
+    this.setState({
+        userInfo:responseJson
+    })
+      console.log(this.state.userInfo);
+    }
+    wxLoad(){
+        let scope = 'snsapi_userinfo';
+        let state = 'wechat_sdk_demo';
+        //判断微信是否安装
+        WeChat.isWXAppInstalled()
+            .then((isInstalled) => {
+                if (isInstalled) {
+                    //发送授权请求
+                    WeChat.sendAuthRequest(scope, state)
+                        .then(responseCode => {
+                            //返回code码，通过code获取access_token
+                            // this.getAccessToken(responseCode.code);
+                            alert(responseCode.code);
+                            console.log(responseCode.code)
+                            this.getWXInfo(responseCode.code);
+                        })
+                        .catch(err => {
+                            Alert.alert('登录授权发生错误：', err.message, [
+                                {text: '确定'}
+                            ]);
+                        })
+                } else {
+                    Platform.OS == 'ios' ?
+                        Alert.alert('没有安装微信', '是否安装微信？', [
+                            {text: '取消'},
+                            {text: '确定', onPress: () => this.installWechat()}
+                        ]) :
+                        Alert.alert('没有安装微信', '请先安装微信客户端在进行登录', [
+                            {text: '确定'}
+                        ])
+                }
+            })
+
+
+    }
     renderHeader(){
+
         return(
             <View style={styles.headerBg}>
                 <View style={styles.left}>
-                    <View style={styles.header}/>
+                    <View>
+                        <Image source={{uri:this.state.userInfo.headimgurl}} style={{ width:70,
+                            height:70,
+                            borderWidth:2, borderRadius:35,}}/>
+                    </View>
 
                 </View>
 
@@ -54,7 +134,7 @@ export  default  class  MineScene extends PureComponent{
                     <View style={{flex:0.5}}/>
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
                         <View >
-                            <Heading1 style={{fontSize:20,marginBottom:5,color:'#fff'}}>名字</Heading1>
+                            <Heading1 style={{fontSize:20,marginBottom:5,color:'#fff'}}>{this.state.userInfo.nickname}</Heading1>
                             <Heading1 style={{color:'#fff'}}>ID:165134565</Heading1>
                         </View>
                         <View style={{flex:1,alignItems:'flex-end',marginRight:20}}>

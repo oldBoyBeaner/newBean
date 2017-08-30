@@ -32,13 +32,7 @@ export default class RootScene extends PureComponent{
     componentDidMount() {
         WeChat.registerApp('wx69d85a4e412e32b5');
 
-        WeChat.isWXAppInstalled().then((isInstalled)=>{
-            if (isInstalled){
-                alert('已安装')
-            }else {
-                alert('未安装')
-            }
-        })
+
     }
     render(){
         return(
