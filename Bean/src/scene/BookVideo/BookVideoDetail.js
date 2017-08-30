@@ -129,12 +129,14 @@ export  default class BookVideoDetail extends  PureComponent{
         console.log('sss'+this.state.dataSource.cover);
         return(
             <View style={{backgroundColor:color.background}}>
+                <View style={{justifyContent:'center', alignItems:'center'}}>
                 <TouchableOpacity style={styles.coverBG} >
                     <Image source={{uri:item.cover.url}}
                             style={styles.cover}
                            resizeMode='contain'
                     />
                 </TouchableOpacity>
+                </View>
                 <View style={styles.disBg}>
                     <View style={styles.leftContainer}>
                         <Heading1 style={{fontSize:25,marginBottom:10}}>{item.title}</Heading1>
@@ -189,6 +191,7 @@ const styles =StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:color.background,
+
 
 },
     coverBG:{

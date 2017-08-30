@@ -14,8 +14,9 @@ import Color from './widget/color';
 import WebScene from './widget/WebScene';
 import QRDefault from './widget/DefaultScreen'
 import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
+import * as WeChat from 'react-native-wechat';
 
-const lightContentScenes = ['Home', 'Mine'];
+const lightContentScenes = ['Home'];
 
 function  getCurrentRouteName(navigationState){
     if (!navigationState){
@@ -28,6 +29,17 @@ function  getCurrentRouteName(navigationState){
     return route.routeName;
 }
 export default class RootScene extends PureComponent{
+    componentDidMount() {
+        WeChat.registerApp('wx69d85a4e412e32b5');
+
+        WeChat.isWXAppInstalled().then((isInstalled)=>{
+            if (isInstalled){
+                alert('已安装')
+            }else {
+                alert('未安装')
+            }
+        })
+    }
     render(){
         return(
 
