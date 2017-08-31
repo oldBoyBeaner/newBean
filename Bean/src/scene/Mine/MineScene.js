@@ -26,7 +26,7 @@ import { Paragraph,Heading1 } from '../../widget/Text';
 import SpaceView from '../../widget/SpaceView';
 import  Seprator from '../../widget/Separator';
 import MineItem from './MIneItem';
-import api,{getWxAccess,getMineInfo} from '../../api';
+
 import * as WeChat from 'react-native-wechat';
 let that;
 export  default  class  MineScene extends PureComponent{
@@ -37,8 +37,7 @@ export  default  class  MineScene extends PureComponent{
         this.state = {
             userInfo:{}
         };
-        this.getWXInfo = this.getWXInfo.bind(this);
-        this.getMineInfo = this.getMineInfo.bind(this);
+
         that=this;
       }
     static  navigationOptions =({navigation})=>({
@@ -54,8 +53,8 @@ export  default  class  MineScene extends PureComponent{
         ),
         headerRight:(
             <NavigationItem
-                title='微信登录'
-                onPress={()=>that.wxLoad()}
+                title='退出'
+                onPress={()=>that.loginOut()}
             />
         )
         ,
@@ -63,57 +62,28 @@ export  default  class  MineScene extends PureComponent{
         headerStyle:{backgroundColor:'#fff'}
 
     })
-    async getWXInfo(code) {
-        try {
-            // 注意这里的await语句，其所在的函数必须有async关键字声明
-            let response = await fetch(getWxAccess(code));
-            let responseJson = await response.json();
-            this.getMineInfo(responseJson.access_token,responseJson.openid)
 
-        } catch(error) {
-            console.error(error);
-        }
+    componentDidMount() {
+        this.setState({
+            userInfo:global.user.userData,
+        })
     }
-    async getMineInfo (token,openid){
-        let response = await fetch(getMineInfo(token,openid));
-        let responseJson = await response.json();
-    this.setState({
-        userInfo:responseJson
-    })
-      console.log(this.state.userInfo);
-    }
-    wxLoad(){
-        let scope = 'snsapi_userinfo';
-        let state = 'wechat_sdk_demo';
-        //判断微信是否安装
-        WeChat.isWXAppInstalled()
-            .then((isInstalled) => {
-                if (isInstalled) {
-                    //发送授权请求
-                    WeChat.sendAuthRequest(scope, state)
-                        .then(responseCode => {
-                            //返回code码，通过code获取access_token
-                            // this.getAccessToken(responseCode.code);
-                            alert(responseCode.code);
-                            console.log(responseCode.code)
-                            this.getWXInfo(responseCode.code);
-                        })
-                        .catch(err => {
-                            Alert.alert('登录授权发生错误：', err.message, [
-                                {text: '确定'}
-                            ]);
-                        })
-                } else {
-                    Platform.OS == 'ios' ?
-                        Alert.alert('没有安装微信', '是否安装微信？', [
-                            {text: '取消'},
-                            {text: '确定', onPress: () => this.installWechat()}
-                        ]) :
-                        Alert.alert('没有安装微信', '请先安装微信客户端在进行登录', [
-                            {text: '确定'}
-                        ])
-                }
-            })
+    loginOut(){
+        storage.remove({
+            key: 'loginState',  // 注意:请不要在key中使用_下划线符号!
+            data: {
+
+            },
+
+            // 如果不指定过期时间，则会使用defaultExpires参数
+            // 如果设为null，则永不过期
+            // 8个小时后过期
+            expires: 1000 * 3600 * 8
+        });
+        global.user.loginState = false;//设置登录状态
+        global.user.userData = { };//保存用户数据
+        this.props.navigation.navigate('Login');
+
 
 
     }

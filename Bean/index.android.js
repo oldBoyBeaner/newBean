@@ -5,6 +5,12 @@
  */
 
 import React, { Component } from 'react';
+import {StackNavigator,TabNavigator,TabBarBottom } from 'react-navigation';
+import stroage from './src/scene/Login/StorageUtil';
+import './src/scene/Login/Global';
+import LoginScene from './src/scene/Login/LoginScene';
+import * as WeChat from 'react-native-wechat';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -13,13 +19,65 @@ import {
 } from 'react-native';
 import RootScene from './src/RootScene';
 export default class Bean extends Component {
-  render() {
-    return (
-      <RootScene/>
-    );
-  }
-}
+    constructor(props) {
+        super(props);
+        // 初始状态
+        this.state = {
+            login:''
+        };
+    }
 
+    componentDidMount() {
+        WeChat.registerApp('wx69d85a4e412e32b5');
+
+
+
+        let that = this;
+        storage.load({
+            key: 'loginState',
+        }).then(ret => {
+            global.user.loginState = true;
+            global.user.userData = ret;
+            that.setState({
+                login:true
+            })
+        }).catch(err => {
+            global.user.loginState = false;
+            global.user.userData = '';
+            that.setState({
+                login:false
+            })
+        })
+    }
+    render() {
+        let component ;
+        if (this.state.login !==''){
+            if (!this.state.login){
+                component = <Navigator/>
+            }else {
+                component = <RootScene/>
+            }
+            return (
+                component
+            );
+        }else {
+            return<View/>
+        }
+
+    }
+}
+const Navigator = StackNavigator({
+        Login:{screen:LoginScene},
+        Tab:{screen:RootScene}
+
+    },
+    {
+        headerStyle: { backgroundColor:'#fff' },
+        headerBackTitle: '返回',
+        headerTintColor: '#333333',
+        showIcon: true,
+    }
+)
 const styles = StyleSheet.create({
   container: {
     flex: 1,

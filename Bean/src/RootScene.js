@@ -14,10 +14,8 @@ import Color from './widget/color';
 import WebScene from './widget/WebScene';
 import QRDefault from './widget/DefaultScreen'
 import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
-import * as WeChat from 'react-native-wechat';
-import stroage from './scene/Login/StorageUtil';
-import './scene/Login/Global';
 import LoginScene from './scene/Login/LoginScene';
+
 
 const lightContentScenes = ['Home'];
 
@@ -32,11 +30,10 @@ function  getCurrentRouteName(navigationState){
     return route.routeName;
 }
 export default class RootScene extends PureComponent{
-    componentDidMount() {
-        WeChat.registerApp('wx69d85a4e412e32b5');
+    static navigationOptions =(navigation)=>({
+        header:null,
+    })
 
-
-    }
     render(){
         return(
 
@@ -152,8 +149,8 @@ const Tab=TabNavigator({
 )
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
-        Login:{screen:LoginScene},
         Web:{screen:WebScene},
+        Login:{screen:LoginScene},
         QRView:{screen:QRDefault},
         BookVideoDetail:{screen:BookVideoDetail}
 
