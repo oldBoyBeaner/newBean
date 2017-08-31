@@ -12,11 +12,15 @@ import GroupScene from './scene/Group/GroupScene';
 import TabBarItem from './widget/TabBarItem';
 import Color from './widget/color';
 import WebScene from './widget/WebScene';
+
 import QRDefault from './widget/DefaultScreen';
 import ChatScene from './scene/Chat/ChatScene';
+import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
+import LoginScene from './scene/Login/LoginScene';
 
 
-const lightContentScenes = ['Home', 'Mine'];
+
+const lightContentScenes = ['Home'];
 
 function  getCurrentRouteName(navigationState){
     if (!navigationState){
@@ -29,6 +33,10 @@ function  getCurrentRouteName(navigationState){
     return route.routeName;
 }
 export default class RootScene extends PureComponent{
+    static navigationOptions =(navigation)=>({
+        header:null,
+    })
+
     render(){
         return(
 
@@ -145,8 +153,10 @@ const Tab=TabNavigator({
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
         Web:{screen:WebScene},
+        Chat:{screen:ChatScene},
+        Login:{screen:LoginScene},
         QRView:{screen:QRDefault},
-        Chat:{screen:ChatScene}
+        BookVideoDetail:{screen:BookVideoDetail}
 
     },
     {

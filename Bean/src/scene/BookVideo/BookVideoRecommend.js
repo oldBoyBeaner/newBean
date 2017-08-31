@@ -50,9 +50,7 @@ export  default class BookVideoRecommend extends  PureComponent{
                         <BookVideorecItem
                             data={data}
                             key={index}
-                            onPress={()=>{
-                                alert(index)
-                            }}
+                            onPress={()=>this.props.onPress(index)}
                         />
                       ))}
 

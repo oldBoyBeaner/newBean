@@ -48,9 +48,7 @@ export  default class BookVideoWillOpen extends  PureComponent{
                         <BookVideoWillOpenItem
                             data={data}
                             key={index}
-                            onPress={()=>{
-                                alert(index)
-                            }}
+                            onPress={()=>this.props.onPress(index)}
                         />
                     ))}
                     <TouchableOpacity

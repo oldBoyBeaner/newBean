@@ -28,8 +28,24 @@ export  default class BookVideoHotMovie extends  PureComponent{
         super(props);
         // 初始状态
         this.state = {};
-    }
 
+    }
+    renderLastOne(datas,subTitle){
+
+        if (datas.length>10){
+            return null
+        }else {
+
+            return(
+                <TouchableOpacity
+                    style={styles.lastAll}>
+                    <Paragraph>全部</Paragraph>
+                    <View style={{backgroundColor:'#AEAEAE',height:1,width:20,marginVertical:5}}/>
+                    <Paragraph>{subTitle}</Paragraph>
+                </TouchableOpacity>
+            )
+        }
+    }
     render(){
         let title = this.props.title;
         let subTitle = this.props.subtitle;
@@ -42,22 +58,17 @@ export  default class BookVideoHotMovie extends  PureComponent{
                     subtitle={subTitle}
                 />
                 <ScrollView style={styles.scrollview} horizontal={true}>
+                    <View style={{flexDirection:'row',flexWrap:'wrap',width:datas.length>10?(screen.width/3.5+10)*10:(screen.width/3.5+10)*11}}>
                     {datas.map((data,index)=>(
 
                         <BookVideoHotMovieItem
                             data={data}
                             key={index}
-                            onPress={()=>{
-                                alert(index)
-                            }}
+                            onPress={()=>this.props.onPress(index)}
                         />
                     ))}
-                    <TouchableOpacity
-                        style={styles.lastAll}>
-                        <Paragraph>全部</Paragraph>
-                        <View style={{backgroundColor:'#AEAEAE',height:1,width:20,marginVertical:5}}/>
-                        <Paragraph>{subTitle}</Paragraph>
-                    </TouchableOpacity>
+                        {this.renderLastOne(datas,subTitle)}
+                    </View>
                 </ScrollView>
             </View>
         )

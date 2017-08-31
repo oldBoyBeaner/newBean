@@ -41,7 +41,7 @@ export default class StarScore extends Component {
     }
     render() {
         return (
-            <View style={{flexDirection: 'row', width: width, height: 20, marginBottom: 6}}>
+            <View style={[{flexDirection: 'row', width: width, height: 20},this.props.style ]}>
                 {this._renderBody()}
             </View>
         );

@@ -44,12 +44,14 @@ export  default class  BookVideoList extends  PureComponent{
 
     componentDidMount() {
         let modle = this.props.modle;
-        console.log(modle);
+
         this.setState({
             dataSource:modle
         })
 
     }
+
+
     renderRow(item){
           console.log(item)
           if (item.index ==0){
@@ -58,39 +60,65 @@ export  default class  BookVideoList extends  PureComponent{
                   title={item.item.data.title}
                   subtitle={item.item.data.total}
                   item={item.item.data.items}
+                  onPress={(index)=>{
+                        this.props.navigation.navigate('Web',{url:item.item.data.items[index].target.url})
+                  }}
               />
               )
           }else if (item.index==1){
               let  array = item.item.data.subject_collection_boards;
-              console.log(array);
+
               let title = array[0].items[0].title;
-              console.log(title);
+
             return(
                 <BookVideoHotMovie
                 title={array[0].subject_collection.name}
                 subtitle={array[0].subject_collection.subject_count}
                 item={array[0].items}
+                onPress={(index)=>{
+                    this.props.navigation.navigate('BookVideoDetail',{info:array[0].items[index]})
+                }}
             />
             )
-          }else if (item.index==2){
-              console.log(item);
+          }else if (item.index==2 || item.index==4){
 
+                return(
+                    <TouchableOpacity style={{marginVertical:20}} onPress={()=>{
+                        alert('ad'+item.index);
+                    }}>
+                    <Image source={{url:item.item.data.image}} style={{height:80,flex:1}}/>
+                    </TouchableOpacity>
+                )
 
           }else if (item.index==3){
-              console.log(item);
+
               let  array = item.item.data.subject_collection_boards;
+
             return(
                 <BookVideoWillOpen
                     title={array[0].subject_collection.name}
                     subtitle={array[0].subject_collection.subject_count}
                     item={array[0].items}
+                    onPress={(index)=>{
+                        this.props.navigation.navigate('BookVideoDetail',{info:item.item.data.subject_collection_boards[0].items[index]})
+                    }}
                 />
             )
 
-          } else if (item.index==4){
-              console.log(item);
+          } else if (item.index==5){
 
+              let  array = item.item.data.subject_collection_boards;
 
+              return(
+                  <BookVideoHotMovie
+                      title={array[0].subject_collection.name}
+                      subtitle={array[0].subject_collection.subject_count}
+                      item={array[0].items}
+                      onPress={(index)=>{
+                          this.props.navigation.navigate('BookVideoDetail',{info:array[0].items[index]})
+                      }}
+                  />
+              )
           }
 
     }
