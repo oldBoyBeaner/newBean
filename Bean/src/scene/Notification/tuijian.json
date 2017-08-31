@@ -1,5 +1,4 @@
-{
-  "items" : [
+[
     {
       "activity" : "",
       "author" : {
@@ -89,19 +88,6 @@
           "normal" : {
             "height" : 649,
             "url" : "https://qnmob2.doubanio.com/view/status/median/public/11bcc54d7c0a37d.jpg?imageView2/0/q/80/w/9999/h/200/format/webp",
-            "width" : 460
-          }
-        },
-        {
-          "is_animated" : false,
-          "large" : {
-            "height" : 460,
-            "url" : "https://qnmob2.doubanio.com/view/status/raw/public/1ec6f4aca5ecebf.jpg?imageView2/2/q/60/w/2500/h/9999/format/webp",
-            "width" : 460
-          },
-          "normal" : {
-            "height" : 460,
-            "url" : "https://qnmob2.doubanio.com/view/status/median/public/1ec6f4aca5ecebf.jpg?imageView2/0/q/80/w/9999/h/200/format/webp",
             "width" : 460
           }
         }
@@ -7025,4 +7011,3 @@
       "uri" : "douban://douban.com/status/2016498283"
     }
   ]
-}

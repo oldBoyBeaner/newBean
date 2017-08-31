@@ -36,6 +36,7 @@ import HomeImageTextCell from './HomeImageTextCell';
 import DefaultQR from '../../widget/DefaultScreen';
 import ImagePicker from 'react-native-image-picker';
 import HomeSearchView from'./HomeSearchView';
+import ChatScene from '../Chat/ChatScene';
 let that ;
 
 var photoOptions ={
@@ -84,6 +85,9 @@ export default class  HomeScene extends PureComponent{
 
 
     }
+    _onPressChat(){
+      this.props.navigation.navigate('Chat')
+    }
     static  navigationOptions =({navigation})=>({
         headerTitle:(
             <TouchableOpacity style={styles.search} onPress={()=>that.searchAction()}>
@@ -100,7 +104,7 @@ export default class  HomeScene extends PureComponent{
         headerRight:(
             <NavigationItem icon={require('../../img/ic_reply_13x13_.png')}
                             onPress={()=>{
-                                alert('暂未开通')
+                                that._onPressChat()
                             }}
             />
         ),

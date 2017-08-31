@@ -12,7 +12,8 @@ import GroupScene from './scene/Group/GroupScene';
 import TabBarItem from './widget/TabBarItem';
 import Color from './widget/color';
 import WebScene from './widget/WebScene';
-import QRDefault from './widget/DefaultScreen'
+import QRDefault from './widget/DefaultScreen';
+import ChatScene from './scene/Chat/ChatScene';
 
 
 const lightContentScenes = ['Home', 'Mine'];
@@ -144,7 +145,8 @@ const Tab=TabNavigator({
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
         Web:{screen:WebScene},
-        QRView:{screen:QRDefault}
+        QRView:{screen:QRDefault},
+        Chat:{screen:ChatScene}
 
     },
     {
@@ -154,4 +156,3 @@ const Navigator = StackNavigator({
         showIcon: true,
     }
 )
-
