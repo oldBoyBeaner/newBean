@@ -12,10 +12,13 @@ import GroupScene from './scene/Group/GroupScene';
 import TabBarItem from './widget/TabBarItem';
 import Color from './widget/color';
 import WebScene from './widget/WebScene';
-import QRDefault from './widget/DefaultScreen'
+
+import QRDefault from './widget/DefaultScreen';
+import ChatScene from './scene/Chat/ChatScene';
 import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
 import LoginScene from './scene/Login/LoginScene';
 import SelectCity from './LocationCity/SelectCity';
+
 
 const lightContentScenes = ['Home'];
 
@@ -150,6 +153,7 @@ const Tab=TabNavigator({
 const Navigator = StackNavigator({
         Tab:{screen:Tab},
         Web:{screen:WebScene},
+        Chat:{screen:ChatScene},
         Login:{screen:LoginScene},
         QRView:{screen:QRDefault},
         BookVideoDetail:{screen:BookVideoDetail},
@@ -162,4 +166,3 @@ const Navigator = StackNavigator({
         showIcon: true,
     }
 )
-
