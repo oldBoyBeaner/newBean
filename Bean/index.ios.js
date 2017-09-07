@@ -53,13 +53,14 @@ export default class Bean extends Component {
   render() {
     let component ;
   if (this.state.login !==''){
-      if (!this.state.login){
+      if (!this.state.login){//未登录
           component = <Navigator/>
-      }else {
+      }else {//已登录
           component = <RootScene/>
       }
       return (
-          component
+          //模拟器无法登陆先让进入rootscene
+          <RootScene/>
       );
   }else {
     return<View/>

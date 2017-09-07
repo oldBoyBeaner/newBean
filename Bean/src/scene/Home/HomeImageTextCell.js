@@ -19,7 +19,7 @@ export default class HomeImageTextCell extends  PureComponent{
       }
 
     imageDefault(url){
-        console.log(url);
+
         if(url.length>0){
             return (
                 <Image source={{uri:url}} style={styles.image} resizeMode='contain'/>

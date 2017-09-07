@@ -53,7 +53,7 @@ export  default class  BookVideoList extends  PureComponent{
 
 
     renderRow(item){
-          console.log(item)
+
           if (item.index ==0){
               return(
               <BookVideoRecommend

@@ -15,7 +15,7 @@ import WebScene from './widget/WebScene';
 import QRDefault from './widget/DefaultScreen'
 import BookVideoDetail from './scene/BookVideo/BookVideoDetail'
 import LoginScene from './scene/Login/LoginScene';
-
+import SelectCity from './LocationCity/SelectCity';
 
 const lightContentScenes = ['Home'];
 
@@ -152,8 +152,8 @@ const Navigator = StackNavigator({
         Web:{screen:WebScene},
         Login:{screen:LoginScene},
         QRView:{screen:QRDefault},
-        BookVideoDetail:{screen:BookVideoDetail}
-
+        BookVideoDetail:{screen:BookVideoDetail},
+        SelectCity:{screen:SelectCity}
     },
     {
         headerStyle: { backgroundColor: Color.theme },

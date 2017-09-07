@@ -30,12 +30,14 @@ import MineItem from './MIneItem';
 import * as WeChat from 'react-native-wechat';
 let that;
 export  default  class  MineScene extends PureComponent{
+
     // 构造
       constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            userInfo:{}
+            userInfo:{},
+            cityName:'上海'
         };
 
         that=this;
@@ -47,6 +49,13 @@ export  default  class  MineScene extends PureComponent{
                 title='上海'
                 titleStyle={{color:'#000'}}
                 onPress={()=>{
+                    const {setParams} = navigation;
+                    navigation.navigate('SelectCity',{name:'123',getCity:function (city) {
+                        console.log(city);
+                        that.setState({
+                            cityName:city
+                        })
+                    }});
 
                 }}
             />
@@ -69,6 +78,7 @@ export  default  class  MineScene extends PureComponent{
         })
     }
     loginOut(){
+
         storage.remove({
             key: 'loginState',  // 注意:请不要在key中使用_下划线符号!
             data: {

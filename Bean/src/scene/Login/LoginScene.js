@@ -70,7 +70,6 @@ export default class LoginScene extends PureComponent{
                         .then(responseCode => {
                             //返回code码，通过code获取access_token
                             // this.getAccessToken(responseCode.code);
-                            console.log(responseCode.code)
                             this.getWXInfo(responseCode.code);
                         })
                         .catch(err => {
@@ -106,13 +105,13 @@ export default class LoginScene extends PureComponent{
         let responseJson = await response.json();
 
         this.loginSuccess(responseJson)
-        console.log(this.state.userInfo);
+
     }
     render(){
         return(
             <View style={styles.container} >
                 <TouchableOpacity onPress={()=>this.wxLogin()}>
-                    <Image source={require('../../img/ic_wechat_login_21x21_.png')}/>
+                    <Image source={require('../../img/zs_ic_weixin_25x25_.png')} style={{width:80,height:80}}/>
                 </TouchableOpacity>
             </View>
         );

@@ -68,7 +68,7 @@ export  default class BookVideoDetail extends  PureComponent{
 
             dataSource:array
         })
-        console.log(item);
+
 
     }
     renderRow(rowData){
@@ -126,7 +126,6 @@ export  default class BookVideoDetail extends  PureComponent{
             </View>
         }
 
-        console.log('sss'+this.state.dataSource.cover);
         return(
             <View style={{backgroundColor:color.background}}>
                 <View style={{justifyContent:'center', alignItems:'center'}}>

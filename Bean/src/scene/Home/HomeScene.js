@@ -117,18 +117,18 @@ export default class  HomeScene extends PureComponent{
         try {
             let response = await fetch(api.HomeAPi);
             let jsonData = await response.json();
-            console.log(jsonData.date);
+
             this.listView && this.listView.endRefreshing(RefreshState.NoMoreData);
-            // console.log(jsonData.recommend_feeds);
+
             let dataSource = jsonData.recommend_feeds.map((feed, index) => {
-                console.log(feed);
+
                 return {
                     feed
 
                 }
             })
             let  array = jsonData.recommend_feeds.map((feed, index) => {
-                console.log(feed);
+
                 return {
                     feed
 
@@ -138,15 +138,14 @@ export default class  HomeScene extends PureComponent{
                 dataSource: this.state.dataSource.cloneWithRows(dataSource),
                 array:array,
             })
-            console.log(this.state.dataSource);
+
         }catch (error){
             this.listView && this.listView.endRefreshing(RefreshState.Failure);
         }
 
     }
     renderRow(rowData:{}, sectionID:number, rowID:number){
-        console.log(`rowid====${rowID}`);
-        console.log(rowData.feed);
+
         let url = rowData.feed.target.uri;
         return( <HomeImageTextCell
                 feed={rowData}
@@ -229,7 +228,7 @@ export default class  HomeScene extends PureComponent{
                                        this.setState({
                                            modal:false
                                        })
-                                       console.log('response'+response);
+
                                        if (response.didCancel){
                                            return;
                                        }else if (response.error){
@@ -251,8 +250,7 @@ export default class  HomeScene extends PureComponent{
                                    this.setState({
                                        modal:false
                                    })
-                                   // Alert.alert(e.data)
-                                   console.log(e.data)
+
                                    setTimeout(()=>{
                                        alert('扫描结果'+e.data)
                                    },1000)
