@@ -1,1 +1,1 @@
-# Bean
+ ![image](https://github.com/oldBoyBeaner/newBean/blob/master/2017-09-07%2015_48_17.gif)
