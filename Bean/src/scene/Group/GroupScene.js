@@ -89,7 +89,7 @@ export  default  class  GroupScene extends PureComponent{
        return( <ChatItem
             item={rowData}
             index={rowID}
-            key={rowData}
+            // key={rowID}
         />
        )
     }
@@ -100,8 +100,9 @@ export  default  class  GroupScene extends PureComponent{
                 ListHeaderComponent={this._renderHeader}
                 renderItem={this.renderRow}
                 renderSectionHeader={this._sectionHeader}
+                keyExtractor={(item)=>item.id}
                 sections={[
-                  {data:this.state.dataSource[0].groups,title:this.state.dataSource[0].name}
+                  {data:this.state.dataSource[0].groups,title:this.state.dataSource[0].name,id:this.state.dataSource[0].id}
 
                 ]}
             />
